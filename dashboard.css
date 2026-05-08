@@ -1,4 +1,4 @@
-/* Estrutura principal da Dashboard */
+/* Dashboard Layout */
 .dashboard-wrapper {
     min-height: 100vh;
     background-color: var(--color-bg);
@@ -10,7 +10,6 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Grade que organiza os widgets (Agenda, Drive, etc.) */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -77,99 +76,107 @@
     border: 1px solid rgba(255, 95, 86, 0.3);
 }
 
-/* Estilização da lista de arquivos do Google Drive */
-.drive-list-container {
-    max-height: 500px;
-    overflow-y: auto;
+/* Drive Files List */
+.drive-files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.drive-item {
+.drive-file-item {
     display: flex;
     align-items: center;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-    transition: background-color 0.2s ease;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
     text-decoration: none;
-    color: var(--color-text);
+    transition: all var(--transition-fast);
 }
 
-.drive-item:hover {
-    background-color: rgba(255, 255, 255, 0.02);
-}
-
-.drive-item:last-child {
-    border-bottom: none;
+.drive-file-item:hover {
+    background: rgba(230, 91, 42, 0.05);
+    border-color: rgba(230, 91, 42, 0.3);
+    transform: translateX(5px);
 }
 
 .file-icon {
-    font-size: 1.5rem;
-    margin-right: 1.2rem;
-    width: 32px;
-    display: flex;
-    justify-content: center;
-}
-
-.file-info {
-    flex: 1;
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    flex-shrink: 0;
 }
 
 .file-name {
-    font-weight: 500;
+    color: var(--color-text);
     font-size: 0.95rem;
-    margin-bottom: 0.2rem;
-    display: block;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.file-meta {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
-/* Spinner de carregamento para feedback visual */
-.spinner {
-    width: 30px;
-    height: 30px;
-    border: 3px solid rgba(230, 91, 42, 0.1);
-    border-top: 3px solid var(--color-primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: inline-block;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.loader-container {
+.modal-content {
+    width: 100%;
+    max-width: 900px;
+    height: 85vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Botão de Gerenciar Agenda */
-.btn-manage-calendar {
+.modal-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    padding: 0.5rem 1rem;
-    background-color: var(--color-surface-light);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
     color: var(--color-text);
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all var(--transition-normal);
 }
 
-.btn-manage-calendar:hover {
-    background-color: var(--color-primary-light);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    transform: translateY(-1px);
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color var(--transition-fast);
 }
 
-.btn-manage-calendar svg {
-    opacity: 0.7;
+.close-btn:hover {
+    color: #ff5f56;
+}
+
+.modal-body {
+    flex: 1;
+    background: #fff; /* white for document preview contrast */
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+
+/* Calendar Dark Mode */
+.calendar-iframe {
+    filter: invert(92%) hue-rotate(180deg) brightness(105%) contrast(95%);
+    background: #121212;
+    border-radius: 0 0 12px 12px;
 }

@@ -3,11 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
-    // Alterna o menu mobile ao clicar no ícone de hambúrguer
     mobileMenu.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        
-        // Animação manual das barras do hambúrguer para formar um 'X'
+        // Animate hamburger to X (optional simple animation)
         const bars = document.querySelectorAll('.bar');
         if (navLinks.classList.contains('active')) {
             bars[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
@@ -31,29 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Adiciona uma classe ao navbar quando o usuário rola a página para baixo
+    // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.classList.add('scrolled'); // Aplica fundo escuro/blur
+            navbar.classList.add('scrolled');
         } else {
-            navbar.classList.remove('scrolled'); // Volta ao estado transparente
+            navbar.classList.remove('scrolled');
         }
     });
 
-    // Configuração do Intersection Observer para revelar elementos conforme o scroll
+    // Scroll Reveal Animation (Intersection Observer)
     const observerOptions = {
-        root: null, // Usa a viewport como referência
+        root: null,
         rootMargin: '0px',
-        threshold: 0.15 // Dispara quando 15% do elemento estiver visível
+        threshold: 0.15
     };
-    
-    // Callback que adiciona a classe 'visible' para disparar as animações CSS
+
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Para de observar após a primeira animação
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
