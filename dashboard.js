@@ -211,6 +211,27 @@ function showDashboard(userName) {
     }, 500);
 }
 
+// Função para inicializar o Google Sign-In de forma segura
+function initGoogleSignIn() {
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: handleCredentialResponse
+        });
+        
+        const btnContainer = document.getElementById("google-login-btn");
+        if (btnContainer) {
+            google.accounts.id.renderButton(
+                btnContainer,
+                { theme: "filled_black", size: "large", type: "standard", shape: "rectangular", text: "continue_with" } 
+            );
+        }
+    } else {
+        // Se o script do Google ainda não carregou, tenta novamente em 100ms
+        setTimeout(initGoogleSignIn, 100);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginOverlay = document.getElementById('login-overlay');
     const dashboardContent = document.getElementById('dashboard-content');
@@ -223,16 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const user = JSON.parse(storedUser);
         showDashboard(user.name);
     } else {
-        // Inicializa o Google Sign-In
-        google.accounts.id.initialize({
-            client_id: CLIENT_ID,
-            callback: handleCredentialResponse
-        });
-        
-        google.accounts.id.renderButton(
-            document.getElementById("google-login-btn"),
-            { theme: "filled_black", size: "large", type: "standard", shape: "rectangular", text: "continue_with" } 
-        );
+        // Inicia o processo de inicialização do Google Sign-In
+        initGoogleSignIn();
     }
 
     // Botão de Autorizar Drive
@@ -260,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             widget.classList.remove('visible');
         });
         
-        if (typeof google !== 'undefined' && document.getElementById("google-login-btn").innerHTML === "") {
+        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
              google.accounts.id.renderButton(
                 document.getElementById("google-login-btn"),
                 { theme: "filled_black", size: "large", type: "standard", shape: "rectangular", text: "continue_with" }

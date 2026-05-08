@@ -32,9 +32,11 @@
                 Faça login com seu e-mail corporativo (@sincjr.com.br).
             </p>
 
-            <div class="login-buttons" style="display: flex; justify-content: center;">
+            <div class="login-buttons" style="display: flex; justify-content: center; min-height: 40px;">
                 <!-- Container onde o botão oficial do Google Sign-In será renderizado via JS -->
-                <div id="google-login-btn"></div>
+                <div id="google-login-btn">
+                    <div class="spinner" style="width: 20px; height: 20px;"></div>
+                </div>
             </div>
             <!-- Mensagem de erro caso o e-mail não seja do domínio autorizado -->
             <div id="login-error" class="login-error"
