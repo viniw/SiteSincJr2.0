@@ -18,9 +18,10 @@
 </head>
 
 <body>
-    <!-- Login Overlay -->
+    <!-- Overlay de Login: Bloqueia o acesso à dashboard até a autenticação -->
     <div id="login-overlay" class="login-wrapper">
         <div class="glass-card login-card fade-in">
+            <!-- Branding no card de login -->
             <div class="logo-container mx-auto" style="justify-content: center; margin-bottom: 2rem;">
                 <img src="assets/icone.png" alt="Logo SINC" class="logo-img"
                     onerror="this.src='https://via.placeholder.com/40'">
@@ -32,9 +33,10 @@
             </p>
 
             <div class="login-buttons" style="display: flex; justify-content: center;">
-                <!-- Container for Google Sign-In Button -->
+                <!-- Container onde o botão oficial do Google Sign-In será renderizado via JS -->
                 <div id="google-login-btn"></div>
             </div>
+            <!-- Mensagem de erro caso o e-mail não seja do domínio autorizado -->
             <div id="login-error" class="login-error"
                 style="display: none; color: #ff5f56; text-align: center; margin-top: 1rem;">
                 Acesso restrito a e-mails @sincjr.com.br
@@ -48,7 +50,7 @@
 
     <!-- Dashboard Content -->
     <div id="dashboard-content" class="dashboard-wrapper" style="display: none;">
-        <!-- Header -->
+        <!-- Cabeçalho da Dashboard: Contém o perfil do usuário e botão de logout -->
         <header class="dash-header navbar scrolled" style="position: sticky; top: 0;">
             <div class="nav-container" style="max-width: 100%;">
                 <div class="logo-container">
@@ -56,6 +58,7 @@
                             style="color: var(--color-primary); font-weight: 300;">Workspace</span></span>
                 </div>
                 <div class="user-profile">
+                    <!-- Nome do usuário autenticado -->
                     <span id="user-name" style="margin-right: 15px; font-weight: 500;">Usuário SINC</span>
                     <button id="logout-btn" class="btn-primary-outline"
                         style="padding: 0.4rem 1rem; font-size: 0.9rem;">Sair</button>

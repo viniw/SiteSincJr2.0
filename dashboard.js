@@ -7,6 +7,7 @@ let gapiInited = false;
 let gisInited = false;
 let accessToken = null;
 
+// Decodifica o token JWT retornado pelo Google Sign-In para extrair informações do perfil do usuário
 function decodeJwtResponse(token) {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -29,7 +30,7 @@ async function initializeGapiClient() {
 }
 
 /**
- * Callback after Google Identity Services are loaded.
+ * Inicializa o cliente Google Identity Services (GIS) para autenticação OAuth2.
  */
 function gisLoaded() {
     tokenClient = google.accounts.oauth2.initTokenClient({
@@ -40,6 +41,7 @@ function gisLoaded() {
                 throw (resp);
             }
             accessToken = resp.access_token;
+            // Armazena o token na sessão para evitar múltiplos prompts de consentimento na mesma navegação
             sessionStorage.setItem('sincDriveToken', accessToken);
             await listDriveFiles();
         },
@@ -62,18 +64,23 @@ function checkBeforeStart() {
     }
 }
 
+/**
+ * Busca os arquivos mais recentes do Google Drive do usuário autenticado.
+ */
 async function listDriveFiles() {
     const driveList = document.getElementById('drive-list');
     const driveLoader = document.getElementById('drive-loader');
     const driveError = document.getElementById('drive-error');
     const authBtn = document.getElementById('drive-auth-container');
 
+    // UI: Mostra o loader e esconde erros/listas anteriores
     driveList.style.display = 'none';
     driveLoader.style.display = 'flex';
     driveError.style.display = 'none';
     authBtn.style.display = 'none';
 
     try {
+        // Chamada à API do Google Drive
         const response = await gapi.client.drive.files.list({
             'pageSize': 10,
             'fields': 'files(id, name, mimeType, webViewLink, iconLink, modifiedTime)',
@@ -95,7 +102,7 @@ async function listDriveFiles() {
         driveLoader.style.display = 'none';
         
         if (err.status === 401) {
-            // Token expirado ou inválido
+            // Token expirado ou inválido (necessário nova autorização)
             sessionStorage.removeItem('sincDriveToken');
             authBtn.style.display = 'block';
             driveList.style.display = 'block';
@@ -106,6 +113,9 @@ async function listDriveFiles() {
     }
 }
 
+/**
+ * Renderiza dinamicamente a lista de arquivos no HTML.
+ */
 function renderDriveFiles(files) {
     const driveList = document.getElementById('drive-list');
     driveList.innerHTML = '';
@@ -116,7 +126,8 @@ function renderDriveFiles(files) {
         item.target = '_blank';
         item.className = 'drive-item fade-in';
 
-        let icon = '📄'; // Default
+        // Mapeia ícones baseados no tipo de arquivo
+        let icon = '📄'; // Padrão
         if (file.mimeType === 'application/vnd.google-apps.folder') icon = '📁';
         else if (file.mimeType.includes('pdf')) icon = '📕';
         else if (file.mimeType.includes('spreadsheet')) icon = '📊';
@@ -142,13 +153,18 @@ function renderDriveFiles(files) {
     });
 }
 
+/**
+ * Lida com a resposta do Google Sign-In após o login bem-sucedido.
+ */
 function handleCredentialResponse(response) {
     const loginError = document.getElementById('login-error');
     const responsePayload = decodeJwtResponse(response.credential);
     
+    // Validação de domínio: Apenas e-mails da SINC (@sincjr.com.br) podem entrar
     if (responsePayload.hd === 'sincjr.com.br' || responsePayload.email.endsWith('@sincjr.com.br')) {
         loginError.style.display = 'none';
         
+        // Armazena dados do usuário para persistência na sessão
         sessionStorage.setItem('sincUser', JSON.stringify({
             name: responsePayload.name,
             email: responsePayload.email
@@ -156,6 +172,7 @@ function handleCredentialResponse(response) {
         
         showDashboard(responsePayload.name);
     } else {
+        // Exibe erro e revoga acesso para contas não autorizadas
         loginError.style.display = 'block';
         loginError.textContent = "Acesso negado. Utilize seu e-mail @sincjr.com.br";
         

@@ -27,6 +27,7 @@
     --transition-slow: 0.5s ease;
 }
 
+/* Reset básico para garantir consistência entre navegadores */
 * {
     margin: 0;
     padding: 0;
@@ -61,6 +62,7 @@ a {
     transition: color var(--transition-fast);
 }
 
+/* Centraliza o conteúdo e limita a largura máxima */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -134,6 +136,7 @@ a {
 }
 
 /* Navbar */
+/* Barra de navegação fixa no topo */
 .navbar {
     position: fixed;
     top: 0;
@@ -328,6 +331,7 @@ a {
     color: var(--color-primary);
 }
 
+/* Efeito de Vidro (Glassmorphism) */
 .glass-card {
     background: rgba(30, 30, 30, 0.5);
     backdrop-filter: blur(12px);
