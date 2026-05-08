@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINC - Portal Corporativo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="login-wrapper">
+        <div class="glass-card login-card fade-in">
+            <div class="logo-container mx-auto" style="justify-content: center; margin-bottom: 2rem;">
+                <img src="assets/icone.png" alt="Logo SINC" class="logo-img"
+                    onerror="this.src='https://via.placeholder.com/40'">
+                <span class="logo-text">SINC</span>
+            </div>
+            <h2 class="text-center" style="margin-bottom: 0.5rem;">Acesso Corporativo</h2>
+            <p class="text-center text-muted" style="margin-bottom: 2rem; color: var(--color-text-muted);">
+                Faça login com seu e-mail corporativo (@sincjr.com.br).
+            </p>
+
+            <div class="login-buttons" style="display: flex; justify-content: center;">
+                <!-- Container for Google Sign-In Button -->
+                <div id="google-login-btn"></div>
+            </div>
+            <div id="login-error" class="login-error"
+                style="display: none; color: #ff5f56; text-align: center; margin-top: 1rem;">
+                Acesso restrito a e-mails @sincjr.com.br
+            </div>
+
+            <div class="return-link text-center" style="margin-top: 1.5rem;">
+                <a href="index.html" style="color: var(--color-text-muted); font-size: 0.9rem;">← Voltar para o site</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboard-content" class="dashboard-wrapper" style="display: none;">
+        <!-- Header -->
+        <header class="dash-header navbar scrolled" style="position: sticky; top: 0;">
+            <div class="nav-container" style="max-width: 100%;">
+                <div class="logo-container">
+                    <span class="logo-text">SINC <span
+                            style="color: var(--color-primary); font-weight: 300;">Workspace</span></span>
+                </div>
+                <div class="user-profile">
+                    <span id="user-name" style="margin-right: 15px; font-weight: 500;">Usuário SINC</span>
+                    <button id="logout-btn" class="btn-primary-outline"
+                        style="padding: 0.4rem 1rem; font-size: 0.9rem;">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <main class="dash-main container" style="max-width: 1400px; padding: 2rem;">
+            <div class="dash-header-title" style="margin-bottom: 2rem;">
+                <h2>Visão Geral</h2>
+                <p class="text-muted">Acesso rápido às ferramentas corporativas.</p>
+                <div class="divider"></div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Widget: Google Calendar -->
+                <div class="widget-card slide-up" style="grid-column: 1 / -1;">
+                    <div class="widget-header">
+                        <h3>Agenda SINC</h3>
+                    </div>
+                    <div class="widget-body">
+                        <!-- Placeholder Iframe (Substituir pelo link de embed real do Google Agenda) -->
+                        <iframe
+                            src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo"
+                            style="border: 0; min-height: 85vh;" width="100%" height="1200" frameborder="0"
+                            scrolling="no"></iframe>
+                    </div>
+                </div>
+
+                <div class="widget-card slide-up delay-1" style="grid-column: 1 / -1;">
+                    <div class="widget-header">
+                        <h3>Arquivos SINC (Drive)</h3>
+                        <div id="drive-auth-container" style="display: none;">
+                            <button id="authorize-drive-btn" class="btn-primary-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Autorizar Acesso</button>
+                        </div>
+                    </div>
+                    <div class="widget-body" id="drive-widget-body">
+                        <div id="drive-loader" class="loader-container" style="display: none; padding: 2rem; text-align: center;">
+                            <div class="spinner"></div>
+                            <p style="margin-top: 1rem; color: var(--color-text-muted);">Carregando arquivos...</p>
+                        </div>
+                        <div id="drive-list" class="drive-list-container">
+                            <!-- Files will be rendered here -->
+                             <div style="padding: 2rem; text-align: center; color: var(--color-text-muted);">
+                                Conectando ao Google Drive...
+                             </div>
+                        </div>
+                        <div id="drive-error" style="display: none; padding: 1.5rem; color: #ff5f56; text-align: center; font-size: 0.9rem;">
+                            Erro ao carregar arquivos do Drive.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
