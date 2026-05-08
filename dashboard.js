@@ -1,6 +1,7 @@
 const CLIENT_ID = "269603322713-gp2fcbgpbi0ls37gj07lia99odn3l457.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly";
-const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest";
+const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/calendar.events";
+const DRIVE_DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest";
+const CALENDAR_DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
 let tokenClient;
 let gapiInited = false;
@@ -23,7 +24,7 @@ function decodeJwtResponse(token) {
  */
 async function initializeGapiClient() {
     await gapi.client.init({
-        discoveryDocs: [DISCOVERY_DOC],
+        discoveryDocs: [DRIVE_DISCOVERY_DOC, CALENDAR_DISCOVERY_DOC],
     });
     gapiInited = true;
     checkBeforeStart();
@@ -41,7 +42,9 @@ function gisLoaded() {
                 throw (resp);
             }
             accessToken = resp.access_token;
-            // Armazena o token na sessão para evitar múltiplos prompts de consentimento na mesma navegação
+            // IMPORTANTE: Seta o token no gapi.client para que as chamadas de API funcionem
+            gapi.client.setToken({ access_token: accessToken });
+            
             sessionStorage.setItem('sincDriveToken', accessToken);
             await listDriveFiles();
         },
@@ -98,17 +101,20 @@ async function listDriveFiles() {
 
         renderDriveFiles(files);
     } catch (err) {
-        console.error('Erro ao listar arquivos:', err);
+        console.error('Erro ao listar arquivos do Drive:', err);
         driveLoader.style.display = 'none';
         
         if (err.status === 401) {
-            // Token expirado ou inválido (necessário nova autorização)
             sessionStorage.removeItem('sincDriveToken');
             authBtn.style.display = 'block';
             driveList.style.display = 'block';
             driveList.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--color-text-muted);">Sessão expirada. Autorize novamente.</div>';
+        } else if (err.status === 403) {
+            driveError.style.display = 'block';
+            driveError.innerHTML = 'Erro 403: Verifique se a "Google Drive API" está ativada no Google Cloud Console e se as origens JavaScript estão corretas.';
         } else {
             driveError.style.display = 'block';
+            driveError.innerHTML = 'Erro ao carregar arquivos do Drive. Verifique o console para mais detalhes.';
         }
     }
 }
