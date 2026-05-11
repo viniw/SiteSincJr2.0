@@ -12,8 +12,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="dashboard.css?v=2">
     <script src="https://accounts.google.com/gsi/client"></script>
 
     <!-- Favicon -->
@@ -58,10 +58,19 @@
             <div class="nav-container" style="max-width: 100%;">
                 <div class="logo-container">
                     <span class="logo-text">SINC <span
-                            style="color: var(--color-primary); font-weight: 300;">Workspace</span></span>
+                            style="color: var(--color-primary); font-weight: 300;">Dashboard</span></span>
                 </div>
-                <div class="user-profile">
-                    <span id="user-name" style="margin-right: 15px; font-weight: 500;">Usuário SINC</span>
+                <div class="user-profile" style="display: flex; align-items: center; gap: 1rem;">
+                    <a href="index.html" class="btn-primary-outline" style="padding: 0.4rem 1rem; font-size: 0.9rem; text-decoration: none; border-color: rgba(255,255,255,0.2); color: var(--color-text);">← Voltar ao Site</a>
+                    
+                    <button id="theme-toggle" class="theme-toggle" style="margin-left: 0;">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+
+                    <span id="user-name"
+                        style="font-weight: 500; text-align: right; line-height: 1.2;">Usuário
+                        SINC</span>
                     <button id="logout-btn" class="btn-primary-outline"
                         style="padding: 0.4rem 1rem; font-size: 0.9rem;">Sair</button>
                 </div>
@@ -71,42 +80,88 @@
         <!-- Main Grid -->
         <main class="dash-main container" style="max-width: 1400px; padding: 2rem;">
             <div class="dash-header-title" style="margin-bottom: 2rem;">
-                <h2>Visão Geral</h2>
-                <p class="text-muted">Acesso rápido às ferramentas corporativas.</p>
+                <h2>Ferramentas SINC</h2>
+                <p class="text-muted">Acesso rápido às ferramentas da sinc.</p>
                 <div class="divider"></div>
             </div>
 
-            <div class="dashboard-grid">
+            <!-- Top Layout: Calendar and Spreadsheet -->
+            <div style="display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+
                 <!-- Widget: Google Calendar -->
-                <div class="widget-card slide-up" style="grid-column: 1 / -1;">
+                <div class="widget-card slide-up" style="flex: 1; min-width: 300px;">
                     <div class="widget-header">
-                        <h3>Agenda SINC</h3>
-                        <a href="https://calendar.google.com/calendar/u/0/r" target="_blank" class="btn-primary-outline" style="padding: 0.3rem 0.8rem; font-size: 0.85rem; text-decoration: none;">Editar Agenda</a>
+                        <h3>Calendário</h3>
                     </div>
                     <div class="widget-body">
-                        <!-- Placeholder Iframe (Substituir pelo link de embed real do Google Agenda) -->
+                        <!-- Iframe do Google Agenda reduzido -->
                         <iframe
-                            class="calendar-iframe"
-                            src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo"
-                            style="border: 0; min-height: 85vh;" width="100%" height="1200" frameborder="0"
-                            scrolling="no"></iframe>
+                            src="https://calendar.google.com/calendar/embed?height=400&wkst=1&ctz=America%2FSao_Paulo&showPrint=0&title=Agenda%20SINC&showTz=0&src=Y19jZjg5NWYxMjhmNjE2YzZkODA1NWQ3MDk4ZTg1NjM0MDIwMmM0NThjMWQ1MjcxNTE1ZmIwNWNiN2FhMjY4OGNiQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23d50000"
+                            style="border: 0; min-height: 400px; border-radius: 8px;" width="100%" height="400"
+                            frameborder="0" scrolling="no"></iframe>
                     </div>
                 </div>
 
+                <!-- Widget: Banco de Horas (Google Sheets) -->
+                <div class="widget-card slide-up delay-1" style="flex: 2; min-width: 300px;">
+                    <div class="widget-header"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Planilha de Horas</h3>
+                        <a href="https://docs.google.com/spreadsheets/d/1cJxP2gAjh94WthoNOPVzWhQ-OESwCH7k67aDqnLtfS0/edit"
+                            target="_blank" class="btn-primary-outline"
+                            style="padding: 0.3rem 0.8rem; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            Abrir Planilha
+                        </a>
+                    </div>
+                    <div class="widget-body" style="padding: 0;" id="sheet-widget-body">
+                        <!-- Editable Iframe (Forced Dark Mode via CSS Filter) -->
+                        <iframe
+                            src="https://docs.google.com/spreadsheets/d/1cJxP2gAjh94WthoNOPVzWhQ-OESwCH7k67aDqnLtfS0/edit?widget=true&headers=false"
+                            style="border: 0; min-height: 400px; border-radius: 8px; filter: invert(0.9) hue-rotate(180deg) contrast(1.1);"
+                            width="100%" height="400" frameborder="0" scrolling="yes"></iframe>
+                    </div>
+                </div>
 
+            </div>
+
+            <!-- Bottom Layout -->
+            <div class="dashboard-grid">
 
                 <!-- Widget: Google Drive API -->
                 <div class="widget-card slide-up delay-2" style="grid-column: 1 / -1;">
                     <div class="widget-header">
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <button id="drive-back-btn" class="btn-secondary" style="display: none; padding: 0.3rem 0.6rem; font-size: 0.8rem;">← Voltar</button>
-                            <h3>Arquivos Corporativos</h3>
+                            <button id="drive-back-btn" class="btn-secondary"
+                                style="display: none; padding: 0.3rem 0.6rem; font-size: 0.8rem;">← Voltar</button>
+                            <h3>Google Drive</h3>
                         </div>
-                        <button id="auth-drive-btn" class="btn-primary" style="padding: 0.4rem 1rem; font-size: 0.9rem;">Sincronizar Drive</button>
+                        <button id="auth-drive-btn" class="btn-primary"
+                            style="padding: 0.4rem 1rem; font-size: 0.9rem;">Sincronizar Drive</button>
                     </div>
                     <div class="widget-body" style="padding: 1.5rem;">
                         <div id="drive-files-container" class="drive-files-list">
-                            <p class="text-muted text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Clique em "Sincronizar Drive" para carregar os arquivos da pasta da SINC.</p>
+                            <p class="text-muted text-center" style="margin-top: 2rem; margin-bottom: 2rem;">Clique em
+                                "Sincronizar Drive" para carregar os arquivos da pasta da SINC.</p>
+                        </div>
+                        <div
+                            style="display: flex; justify-content: flex-end; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05);">
+                            <a href="https://drive.google.com/drive/folders/0B_pfgOzEMjWhWUh6ZFVLMnFlTDg"
+                                target="_blank" class="btn-primary-outline"
+                                style="padding: 0.3rem 0.8rem; font-size: 0.8rem; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                                Abrir Drive
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -122,7 +177,8 @@
                 <button id="close-modal-btn" class="close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <iframe id="file-preview-iframe" src="" frameborder="0" width="100%" height="100%" allow="autoplay"></iframe>
+                <iframe id="file-preview-iframe" src="" frameborder="0" width="100%" height="100%"
+                    allow="autoplay"></iframe>
             </div>
         </div>
     </div>
