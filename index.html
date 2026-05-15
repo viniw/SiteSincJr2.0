@@ -30,6 +30,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -59,13 +64,15 @@
                 <a href="#members">Membros</a>
                 <!-- Link para a seção Membros -->
                 <a href="#contact" class="btn-primary-outline">Contato</a>
-                <!-- Link para a seção de Contato com estilo de botão delineado -->
-                
-                <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
-                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
 
+                <!-- Link para a seção de Contato com estilo de botão delineado -->
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema">
+                    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
                 <a href="dashboard.html" class="btn-primary" style="margin-left: 10px;">Entrar</a>
                 <!-- Link para a nova página de Login/Dashboard -->
             </nav>
@@ -86,26 +93,41 @@
             <!-- Seção "Hero" (destaque principal no topo da página) -->
             <div class="hero-overlay"></div>
             <!-- Camada de sobreposição (geralmente escura) para melhorar a leitura do texto sobre a imagem de fundo -->
-            <div class="hero-content">
+            <div class="hero-container">
                 <!-- Container para o conteúdo textual do destaque -->
-                <p class="fade-in"
-                    style="color: var(--color-primary); font-weight: 600; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 1rem;">
-                    EMPRESA JÚNIOR &bull; UFRGS &bull; DESDE 2016</p>
-                <h1 class="fade-in" style="font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.2;">Engenharia que
-                    <span style="color: var(--color-primary);">automatiza</span> o seu chão de fábrica
-                </h1>
-                <!-- Título principal da página com animação de fade in -->
-                <p class="fade-in delay-1" style="font-size: 1.1rem; max-width: 700px;">Projetos de automação
-                    industrial, instalações elétricas, eletrônica e eficiência energética - entregues por estudantes da
-                    UFRGS.</p>
-                <!-- Subtítulo ou descrição com pequeno atraso na animação -->
-                <div class="hero-buttons fade-in delay-2">
-                    <!-- Container para os botões de ação na área hero -->
-                    <a href="#contact" class="btn-primary">Fale com a Sinc</a>
-                    <!-- Botão de ação principal redirecionando para a seção de Contato -->
-                    <a href="#services" class="btn-secondary">Nossos serviços</a>
-                    <!-- Botão secundário redirecionando para a seção Serviços -->
+                <div class="hero-content">
+                    <p class="fade-in"
+                        style="color: var(--color-primary); font-weight: 600; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 1rem;">
+                        EMPRESA JÚNIOR &bull; UFRGS &bull; DESDE 2016</p>
+                    <h1 class="fade-in" style="font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.2;">Engenharia que
+                        <span style="color: var(--color-primary);">automatiza</span> o seu chão de fábrica
+                    </h1>
+                    <!-- Título principal da página com animação de fade in -->
+                    <p class="fade-in delay-1" style="font-size: 1.1rem; max-width: 700px;">Projetos de automação
+                        industrial, instalações elétricas, eletrônica e eficiência energética - entregues por
+                        estudantes da
+                        UFRGS.</p>
+                    <!-- Subtítulo ou descrição com pequeno atraso na animação -->
+                    <div class="hero-buttons fade-in delay-2">
+                        <!-- Container para os botões de ação na área hero -->
+                        <a href="#contact" class="btn-primary">Fale com a Sinc</a>
+                        <!-- Botão de ação principal redirecionando para a seção de Contato -->
+                        <a href="#services" class="btn-secondary">Nossos serviços</a>
+                        <!-- Botão secundário redirecionando para a seção Serviços -->
+                    </div>
                 </div>
+
+                <!-- Novo Painel de Case -->
+                <a href="#cases" class="hero-case-card fade-in delay-2">
+                    <div class="case-decoration">
+                        <img src="assets/icone.png" alt="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <p class="case-meta">CASE / FUELTECH &bull; 2025</p>
+                    <h3 class="case-title">99,8% de taxa de acerto no controle de qualidade por IA.</h3>
+                    <div class="case-footer">
+                        <span>5 semanas</span> &bull; Garantia 9 meses
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -126,7 +148,7 @@
                         <!-- Coluna de texto com animação de deslizar para cima -->
                         <h3>Engenharia real, entregue por estudantes</h3>
                         <!-- Título do bloco de texto -->
-                        <p>A Sinc Jr é a empresa júnior dos cursos de Engenharia Elétrica e Engeharia de Controle e
+                        <p>A Sinc Jr é a empresa júnior dos cursos de Engenharia Elétrica e Engenharia de Controle e
                             Automação da UFRGS. Atuamos com suporte técnico de professores e laboratórios da
                             universidade para entregar projetos de alta qualidade e clientes reais.</p>
                         <!-- Parágrafo introdutório -->
@@ -259,51 +281,237 @@
         <section id="cases" class="cases-section section-padding">
             <div class="container">
                 <div class="section-title" style="text-align: left;">
-                    <span class="section-tag">Estudos de Caso</span>
+                    <span
+                        style="color: var(--color-primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; display: block;">Estudos
+                        de Caso</span>
                     <h2 style="margin-bottom: 2rem; text-align: left;">Projetos reais. Indústrias reais.</h2>
                     <div class="divider" style="margin-left: 0;"></div>
                 </div>
 
-                <div class="case-card slide-up">
-                    <!-- Logo decoration -->
-                    <div
-                        style="position: absolute; top: -50px; right: -50px; width: 400px; height: 400px; opacity: 0.05; pointer-events: none;">
-                        <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                <div class="cases-grid">
+                    <!-- Big Case: FuelTech -->
+                    <div class="case-card-large slide-up">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <div style="position: relative; z-index: 2;">
+                            <p
+                                style="color: var(--color-text-muted); font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem;">
+                                CASE / FUELTECH &bull; 2025</p>
+                            <h3 style="font-size: 2rem; margin-bottom: 1rem; max-width: 700px; line-height: 1.3;">IA
+                                para controle de qualidade e validação de montagem na linha de produção.</h3>
+                            <p
+                                style="color: var(--color-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem;">
+                                5 semanas de desenvolvimento &bull; 99,8% de taxa de acerto &bull; Garantia 9 meses</p>
+
+                            <div class="case-category-tag">INTELIGÊNCIA ARTIFICIAL</div>
+
+                            <div
+                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; border-top: 1px solid var(--card-border); padding-top: 2rem;">
+                                <div>
+                                    <h4
+                                        style="color: var(--color-primary); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase;">
+                                        O Desafio</h4>
+                                    <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6;">A
+                                        FuelTech realizava o controle com uma balança convencional. Buscavam uma solução
+                                        moderna e versátil para sua linha de produção.</p>
+                                </div>
+                                <div>
+                                    <h4
+                                        style="color: var(--color-primary); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase;">
+                                        A Solução</h4>
+                                    <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6;">
+                                        Implementamos IA treinada para reconhecimento visual dos itens e verificação da
+                                        sequência de montagem em cada etapa.</p>
+                                </div>
+                                <div>
+                                    <h4
+                                        style="color: var(--color-primary); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase;">
+                                        Os Resultados</h4>
+                                    <p style="color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6;">
+                                        Software customizado com validação de etapas, alta precisão e garantia total de
+                                        9 meses pós-entrega.</p>
+                                </div>
+                            </div>
+
+                            <div class="case-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">5</span>
+                                    <span class="stat-label">Semanas de<br>Desenvolvimento</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">99,8%</span>
+                                    <span class="stat-label">De taxa de<br>acerto</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">9</span>
+                                    <span class="stat-label">Meses de Garantia<br>Pós-Entrega</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div style="position: relative; z-index: 2;">
-                        <p class="case-meta">CASE / FUELTECH &bull; 2025</p>
-                        <h3 class="case-title">IA para controle de qualidade e validação de montagem na linha de produção.</h3>
-                        <p class="case-highlight">100+ horas de desenvolvimento &bull; 10 semanas &bull; Garantia 9 meses</p>
-
-                        <div class="case-badge">
-                            <span>INTELIGÊNCIA ARTIFICIAL</span>
+                    <!-- Row 1 -->
+                    <!-- Small Case 1: Mil Jatos -->
+                    <div class="case-card-small slide-up">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
                         </div>
-
-                        <div class="case-stats-grid">
-                            <div>
-                                <h4>O Desafio</h4>
-                                <p>A FuelTech realizava o controle de qualidade com uma balança convencional - o peso estimado determinava se todos os itens estavam presentes na embalagem. A empresa buscava uma solução mais moderna, versátil e inteligente para sua linha de produção.</p>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / MIL JATOS</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Automação de limpeza
+                            por ar comprimido com válvula ativada por sensor.</h4>
+                        <div class="case-category-tag">AUTOMAÇÃO INDUSTRIAL</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">24V</span>
+                                <span class="stat-label">Padrão<br>Industrial</span>
                             </div>
-                            <div>
-                                <h4>A Solução</h4>
-                                <p>Implementamos um sistema de IA treinado para reconhecimento visual dos itens específicos que passam pela linha e para verificar se a sequência correta de montagem foi seguida em cada etapa do processo.</p>
+                            <div class="stat-item">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Trilho<br>DIN</span>
                             </div>
-                            <div>
-                                <h4>Os Resultados</h4>
-                                <p>Entrega de software customizado com IA treinada para reconhecimento de produtos e validação de etapas de montagem, com consultoria completa e garantia de 9 meses pós-entrega.</p>
+                            <div class="stat-item">
+                                <span class="stat-value">ECO</span>
+                                <span class="stat-label">Sem<br>Desperdício</span>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="case-methodology">
-                            <h4>Metodologia</h4>
-                            <ul>
-                                <li><strong>1. Análise e planejamento</strong> - Estudo do material prévio e mapeamento do processo da FuelTech.</li>
-                                <li><strong>2. Refinamento da IA</strong> - Melhoria no desempenho do reconhecimento visual dos itens.</li>
-                                <li><strong>3. Controle de etapas</strong> - Desenvolvimento do método de checagem da sequência de montagem.</li>
-                                <li><strong>4. Testes e validação</strong> - Ciclos rigorosos de testes práticos para garantir precisão.</li>
-                                <li><strong>5. Polimento e entrega</strong> - Ajustes finais e entrega com suporte da equipe UFRGS.</li>
-                            </ul>
+                    <!-- Small Case 2: Moschetti -->
+                    <div class="case-card-small slide-up delay-1">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / MOSCHETTI</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Contagem e marcação a
+                            laser de lotes de embalagens com zero extravios.</h4>
+                        <div class="case-category-tag">AUTOMAÇÃO E INSTRUMENTAÇÃO</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">170</span>
+                                <span class="stat-label">Un. por<br>Lote</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">0%</span>
+                                <span class="stat-label">Extravios</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">CO2</span>
+                                <span class="stat-label">Laser<br>Industrial</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Case 3: Gerdau -->
+                    <div class="case-card-small slide-up delay-2">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / GERDAU</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Medidor automatizado de
+                            resistência elétrica para validação de manutenção.</h4>
+                        <div class="case-category-tag" style="font-size: 0.65rem;">HARDWARE E SOFTWARE INDUSTRIAL</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Leituras<br>Simultâneas</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Automação</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">BIVOLT</span>
+                                <span class="stat-label">Baixo<br>Ruído</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <!-- Small Case 4: Ciex -->
+                    <div class="case-card-small slide-up">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / CIEX</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Central IoT de
+                            rastreabilidade fabril com software de gestão de paradas.</h4>
+                        <div class="case-category-tag">IOT E SOFTWARE INDUSTRIAL</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">24/7</span>
+                                <span class="stat-label">Coleta de<br>Dados</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">0-10V</span>
+                                <span class="stat-label">Sensor a<br>Laser</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Rastreabilidade</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Case 5: Instituto Ling -->
+                    <div class="case-card-small slide-up delay-1">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / INSTITUTO LING</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Alarme PIR invisível
+                            para proteção de obras de arte em exposição.</h4>
+                        <div class="case-category-tag">SISTEMAS EMBARCADOS</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">30cm</span>
+                                <span class="stat-label">Raio de<br>Disparo</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Integração<br>Discreta</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">PIR</span>
+                                <span class="stat-label">Detecção<br>Térmica</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small Case 6: Ricaplast -->
+                    <div class="case-card-small slide-up delay-2">
+                        <div class="case-decoration">
+                            <img src="assets/icone.png" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+                        <p
+                            style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                            CASE / RICAPLAST</p>
+                        <h4 style="font-size: 1.15rem; margin-bottom: 1.5rem; line-height: 1.4;">Raio-X energético com
+                            plano de ROI em 3 fases para indústria calçadista.</h4>
+                        <div class="case-category-tag">CONSULTORIA ELÉTRICA</div>
+                        <div class="case-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">3</span>
+                                <span class="stat-label">Fases de<br>ROI</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">ECO</span>
+                                <span class="stat-label">Indústria<br>Limpa</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">100%</span>
+                                <span class="stat-label">Cargas<br>Mapeadas</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -544,7 +752,7 @@
                 </div>
             </div>
             <div class="footer-bottom"
-                style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--footer-border); text-align: center;">
                 <!-- Seção mais inferior do rodapé, contendo direitos autorais -->
                 <p
                     style="font-family: monospace; font-size: 0.85rem; color: #666; letter-spacing: 1px; text-transform: uppercase;">
